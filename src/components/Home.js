@@ -13,8 +13,8 @@ class Home extends Component {
     this.props.fetchTrendingShows();
     this.props.fetchPopularShows();
 
-    console.log(this.props.trendingShows);
-    console.log(this.props.popularShows);
+    console.log('TENDER SHOWS IN FETCH FUNCTION',this.props.trendingShows);
+    console.log('POPULAR SHOWS IN FETCH FUNCTION',this.props.popularShows);
 
   }
   renderTrendingShows() {
@@ -35,11 +35,18 @@ class Home extends Component {
   }
 
   renderPopularShows() {
-    let showProps = this.props.popularShows;
+      console.log('POPULAR SHOWS',this.props.popularShows.data.results);
+    let showProps = this.props.popularShows.results;
     let shows = null;
     let showItems = (<span>No shows were found!</span>);
-    console.log('sadkjnasd',this.props.popularShows);
-
+    console.log('123890213',this.props.popularShows.data.results);
+    if(showProps.length > 0) {
+        shows = showProps.map(show => {
+            return (
+                <div>HELLO</div>
+            )
+        });
+    }
     return shows;
   }
   render() {
@@ -53,15 +60,23 @@ class Home extends Component {
 
     return (
         <div>
+            <div>
             {!this.props.trendingShows ? (
                 <div>LOADING TRENDING SHOWS</div>
         ) : (
             <Slider {...settings}>
                 {this.renderTrendingShows()}
             </Slider> )}
+            </div>
 
-
-
+            <div>
+                {!this.props.PopularShows ? (
+                    <div>LOADING POPULAR SHOWS</div>
+            ) : (
+                <Slider {...settings}>
+                    {this.renderPopularShows()}
+                </Slider> )}
+            </div>
 
       </div>
 
@@ -77,11 +92,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, actions)(Home);
-/*
-{!this.props.popularShows ? (
-    <div>LOADING TRENDING SHOWS</div>
-) :
-<Slider {...settings}>
-    {this.renderPopularShows()}
-</Slider>}
-*/

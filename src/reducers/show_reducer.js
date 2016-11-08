@@ -7,7 +7,7 @@ export default function(state = [], action) {
   case FETCH_WATCHLIST:
     return { ...state, watchList: action.payload.data };
   case FETCH_POPULAR_SHOWS:
-    return { ...state, popularShows: action.payload.data };
+    return { ...state, popularShows: action.payload.data.results };
   }
   return state;
 }
