@@ -10,7 +10,37 @@ import Slider from 'react-slick';
 
 class Home extends Component {
   componentWillMount() {
-    //this.props.fetchMessage();
+    this.props.fetchTrendingShows();
+    this.props.fetchPopularShows();
+
+    console.log(this.props.trendingShows);
+    console.log(this.props.popularShows);
+
+  }
+  renderTrendingShows() {
+    let showProps = this.props.trendingShows;
+    let shows = null;
+    let showItems = (<span>No shows were found!</span>);
+    console.log('sadkjnasd',this.props.trendingShows);
+    if(showProps.length > 0) {
+        shows = showProps.map(show => {
+            return (
+                <div id={show.id}>
+                    <img src={show.image.medium}></img>
+                </div>
+            )
+        });
+    }
+    return shows;
+  }
+
+  renderPopularShows() {
+    let showProps = this.props.popularShows;
+    let shows = null;
+    let showItems = (<span>No shows were found!</span>);
+    console.log('sadkjnasd',this.props.popularShows);
+
+    return shows;
   }
   render() {
     var settings = {
@@ -20,31 +50,38 @@ class Home extends Component {
       slidesToShow: 3,
       slidesToScroll: 3
     };
+
     return (
-      <div>
-        <Slider {...settings}>
-          <div><img src='http://tvmazecdn.com/uploads/images/medium_portrait/79/198046.jpg' /></div>
-          <div><img src='http://tvmazecdn.com/uploads/images/medium_portrait/79/198046.jpg' /></div>
-          <div><img src='http://tvmazecdn.com/uploads/images/medium_portrait/79/198046.jpg' /></div>
-        </Slider>
+        <div>
+            {!this.props.trendingShows ? (
+                <div>LOADING TRENDING SHOWS</div>
+        ) : (
+            <Slider {...settings}>
+                {this.renderTrendingShows()}
+            </Slider> )}
 
-        <Slider {...settings}>
-          <div><img src='http://placekitten.com/g/400/200' /></div>
-          <div><img src='http://placekitten.com/g/400/200' /></div>
-          <div><img src='http://placekitten.com/g/400/200' /></div>
-        </Slider>
 
-        <Slider {...settings}>
-          <div><img src='http://placekitten.com/g/400/200' /></div>
-          <div><img src='http://placekitten.com/g/400/200' /></div>
-          <div><img src='http://placekitten.com/g/400/200' /></div>
-        </Slider>
+
+
       </div>
 
-
-
-    );
+    )
   }
 }
 
-export default connect(null, actions)(Home);
+function mapStateToProps(state) {
+    return {
+        trendingShows: state.show.trendingShows,
+        popularShows: state.show.popularShows
+    }
+}
+
+export default connect(mapStateToProps, actions)(Home);
+/*
+{!this.props.popularShows ? (
+    <div>LOADING TRENDING SHOWS</div>
+) :
+<Slider {...settings}>
+    {this.renderPopularShows()}
+</Slider>}
+*/

@@ -11,7 +11,8 @@ import {
   SEARCH_RESULTS,
   FETCH_SHOW,
   FETCH_TRENDING_SHOWS,
-  FETCH_WATCHLIST
+  FETCH_WATCHLIST,
+  FETCH_POPULAR_SHOWS
 } from './types';
 
 export function signinUser({ username, password}) {
@@ -94,6 +95,19 @@ export function fetchTrendingShows() {
         console.log(response);
         dispatch({
           type: FETCH_TRENDING_SHOWS,
+          payload: response
+        })
+      })
+  }
+}
+
+export function fetchPopularShows() {
+  return function(dispatch) {
+    axios.get(`${ROOT_URL_V2}/popular/`)
+      .then(response => {
+        console.log(response);
+        dispatch({
+          type: FETCH_POPULAR_SHOWS,
           payload: response
         })
       })
