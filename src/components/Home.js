@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import Show from './search/Show';
 import Slider from 'react-slick';
 
 //import { searchShows } from '../../actions/index';
@@ -21,7 +22,6 @@ class Home extends Component {
     let showProps = this.props.trendingShows;
     let shows = null;
     let showItems = (<span>No shows were found!</span>);
-    console.log('sadkjnasd',this.props.trendingShows);
     if(showProps.length > 0) {
         shows = showProps.map(show => {
             return (
@@ -35,15 +35,15 @@ class Home extends Component {
   }
 
   renderPopularShows() {
-      console.log('POPULAR SHOWS',this.props.popularShows.data.results);
-    let showProps = this.props.popularShows.results;
+    let showProps = this.props.popularShows;
     let shows = null;
     let showItems = (<span>No shows were found!</span>);
-    console.log('123890213',this.props.popularShows.data.results);
     if(showProps.length > 0) {
         shows = showProps.map(show => {
             return (
-                <div>HELLO</div>
+                <div id={show.id}>
+                    <img height="295" width="210" src={show.poster_img}></img>
+                </div>
             )
         });
     }
@@ -69,8 +69,10 @@ class Home extends Component {
             </Slider> )}
             </div>
 
+            <hr></hr>
+            
             <div>
-                {!this.props.PopularShows ? (
+                {!this.props.popularShows ? (
                     <div>LOADING POPULAR SHOWS</div>
             ) : (
                 <Slider {...settings}>
