@@ -1,8 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { FETCH_WATCHLIST, FETCH_TRENDING_SHOWS, FETCH_POPULAR_SHOWS } from '../actions/types';
 =======
 import { FETCH_WATCHLIST, FETCH_TRENDING_SHOWS, FETCH_POPULAR_SHOWS, FETCH_EPISODES } from '../actions/types';
 >>>>>>> 17c3878c042e9028046363ab08b227902795fc54
+=======
+import {
+  FETCH_WATCHLIST,
+  FETCH_TRENDING_SHOWS,
+  FETCH_POPULAR_SHOWS,
+  FETCH_EPISODES
+} from '../actions/types';
+>>>>>>> 867567b4d845fb4448086413051720afaa1b2016
 
 export default function(state = [], action) {
   switch (action.type) {
